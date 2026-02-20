@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #5465FF;
+  --color-secondary: #DF2935;
+  --color-dark: #000000;
+  --color-light: #F4FFFD;
+
+  --font-sans: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  /* Dark mode base styles */
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-20px, -50vh) scale(0.8) rotate(180deg);
+  }
+  75% {
+    transform: translate(30px, -75vh) scale(1.1) rotate(270deg);
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, -100vh) scale(1) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes move-glow {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(30px, -30px);
+  }
+  50% {
+    transform: translate(0, -50px);
+  }
+  75% {
+    transform: translate(-30px, -30px);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background: linear-gradient(135deg, #F4FFFD 0%, #f0f5ff 50%, #fff5f7 100%);
+  }
+  50% {
+    background: linear-gradient(45deg, #F4FFFD 0%, #fff5f7 50%, #f0f5ff 100%);
+  }
+}
+
+@keyframes gradient-shift-dark {
+  0%, 100% {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+  50% {
+    background: linear-gradient(45deg, #1a1a2e 0%, #0f3460 50%, #16213e 100%);
+  }
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F4FFFD 0%, #f0f5ff 50%, #fff5f7 100%);
+  animation: gradient-shift 15s ease-in-out infinite;
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(84, 101, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(223, 41, 53, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(84, 101, 255, 0.1) 0%, transparent 40%);
+}
+
+.dark .hero-bg {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  animation: gradient-shift-dark 15s ease-in-out infinite;
+}
+
+.dark .hero-bg::before {
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(84, 101, 255, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(223, 41, 53, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(84, 101, 255, 0.15) 0%, transparent 40%);
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #5465FF, #DF2935);
+  border-radius: 50%;
+  animation: float var(--duration, 15s) infinite ease-in-out;
+  opacity: 0;
+  box-shadow: 0 0 10px rgba(84, 101, 255, 0.5);
+}
+
+.particle:nth-child(1) { left: 5%; --duration: 10s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 15%; --duration: 14s; animation-delay: 1s; }
+.particle:nth-child(3) { left: 25%; --duration: 12s; animation-delay: 2s; }
+.particle:nth-child(4) { left: 35%; --duration: 16s; animation-delay: 0.5s; }
+.particle:nth-child(5) { left: 45%; --duration: 11s; animation-delay: 3s; }
+.particle:nth-child(6) { left: 55%; --duration: 15s; animation-delay: 1.5s; }
+.particle:nth-child(7) { left: 65%; --duration: 13s; animation-delay: 2.5s; }
+.particle:nth-child(8) { left: 75%; --duration: 17s; animation-delay: 4s; }
+.particle:nth-child(9) { left: 85%; --duration: 10s; animation-delay: 0.8s; }
+.particle:nth-child(10) { left: 95%; --duration: 14s; animation-delay: 3.5s; }
+.particle:nth-child(11) { left: 10%; --duration: 12s; animation-delay: 5s; }
+.particle:nth-child(12) { left: 20%; --duration: 18s; animation-delay: 2.2s; }
+.particle:nth-child(13) { left: 30%; --duration: 11s; animation-delay: 6s; }
+.particle:nth-child(14) { left: 40%; --duration: 15s; animation-delay: 1.2s; }
+.particle:nth-child(15) { left: 50%; --duration: 13s; animation-delay: 4.5s; }
+.particle:nth-child(16) { left: 60%; --duration: 19s; animation-delay: 0.3s; }
+.particle:nth-child(17) { left: 70%; --duration: 12s; animation-delay: 5.5s; }
+.particle:nth-child(18) { left: 80%; --duration: 16s; animation-delay: 3.2s; }
+.particle:nth-child(19) { left: 90%; --duration: 14s; animation-delay: 1.8s; }
+.particle:nth-child(20) { left: 50%; --duration: 20s; animation-delay: 7s; }
+
+.glow-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(84, 101, 255, 0.3) 0%, transparent 70%);
+  animation: pulse-glow 8s ease-in-out infinite, move-glow 12s ease-in-out infinite;
+}
+
+.glow-orb:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s, 0s; }
+.glow-orb:nth-child(2) { top: 60%; right: 10%; animation-delay: 4s, 2s; background: radial-gradient(circle, rgba(223, 41, 53, 0.3) 0%, transparent 70%); }
+.glow-orb:nth-child(3) { bottom: 20%; left: 30%; animation-delay: 2s, 4s; }
+
+.dark .glow-orb {
+  background: radial-gradient(circle, rgba(84, 101, 255, 0.4) 0%, transparent 70%);
+}
+
+.dark .glow-orb:nth-child(2) {
+  background: radial-gradient(circle, rgba(223, 41, 53, 0.4) 0%, transparent 70%);
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-semibold py-3 px-8 rounded-full hover:opacity-90 transition duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-custom {
+    @apply max-w-6xl mx-auto;
+  }
+}
