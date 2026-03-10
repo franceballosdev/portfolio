@@ -7,7 +7,7 @@ const ThreeBackground = () => {
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const particlesRef = useRef(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const rafRef = useRef(null);
 
   useEffect(() => {
@@ -22,14 +22,14 @@ const ThreeBackground = () => {
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // Camera setup
+    // Camera setup - wider field of view for more dramatic effect
     const camera = new THREE.PerspectiveCamera(
-      75,
+      60,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.z = 50;
+    camera.position.z = 40;
     cameraRef.current = camera;
 
     // Renderer setup
@@ -66,33 +66,61 @@ const ThreeBackground = () => {
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     particlesGeometry.setAttribute('aScale', new THREE.BufferAttribute(scaleArray, 1));
 
-    // Material with custom shader for glowing particles
+    // Material with custom shader for glowing particles with mouse interaction
     const particlesMaterial = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
         uColor: { value: new THREE.Color('#3b82f6') },
         uSecondaryColor: { value: new THREE.Color('#8b5cf6') },
+        uMouse: { value: new THREE.Vector2(0, 0) },
       },
       vertexShader: `
         uniform float uTime;
+        uniform vec2 uMouse;
         attribute float aScale;
         varying float vAlpha;
+        varying float vDistToMouse;
+        varying float vInfluence;
         
         void main() {
           vec3 pos = position;
+          
+          // Floating animation
           pos.y += sin(uTime * 0.5 + position.x * 0.1) * 2.0;
           pos.x += cos(uTime * 0.3 + position.y * 0.1) * 1.0;
           
+          // Mouse interaction - MUCH stronger effect
+          vec2 mousePos = uMouse * 60.0;
+          float distToMouse = distance(pos.xy, mousePos);
+          float interactionRadius = 40.0;
+          float influence = smoothstep(interactionRadius, 0.0, distToMouse);
+          
+          // Strong repulsion
+          vec2 dir = normalize(pos.xy - mousePos);
+          float repulsionStrength = influence * 20.0;
+          pos.xy += dir * repulsionStrength;
+          
+          // Also push in Z for depth effect
+          pos.z += influence * 15.0;
+          
           vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
           gl_Position = projectionMatrix * mvPosition;
-          gl_PointSize = (4.0 * aScale + 2.0) * (100.0 / -mvPosition.z);
+          
+          // Much larger size increase near mouse
+          float sizeMult = 1.0 + influence * 4.0;
+          gl_PointSize = (5.0 * aScale + 3.0) * sizeMult * (100.0 / -mvPosition.z);
+          
           vAlpha = aScale;
+          vDistToMouse = distToMouse;
+          vInfluence = influence;
         }
       `,
       fragmentShader: `
         uniform vec3 uColor;
         uniform vec3 uSecondaryColor;
         varying float vAlpha;
+        varying float vDistToMouse;
+        varying float vInfluence;
         
         void main() {
           float dist = length(gl_PointCoord - vec2(0.5));
@@ -101,8 +129,18 @@ const ThreeBackground = () => {
           float glow = 1.0 - (dist * 2.0);
           glow = pow(glow, 2.0);
           
-          vec3 color = mix(uColor, uSecondaryColor, vAlpha);
-          gl_FragColor = vec4(color, glow * 0.8);
+          // Much brighter and more colorful near mouse
+          float mouseGlow = vInfluence * 0.8;
+          
+          vec3 baseColor = mix(uColor, uSecondaryColor, vAlpha);
+          // Shift to bright cyan/white near mouse
+          vec3 brightColor = vec3(0.8, 0.95, 1.0);
+          vec3 color = mix(baseColor, brightColor, mouseGlow);
+          
+          // Higher opacity near mouse
+          float alpha = glow * (0.8 + mouseGlow);
+          
+          gl_FragColor = vec4(color, alpha);
         }
       `,
       transparent: true,
@@ -153,21 +191,27 @@ const ThreeBackground = () => {
       rafRef.current = requestAnimationFrame(animate);
       time += 0.016;
 
+      // Smooth mouse interpolation
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
+
       // Update uniforms
       particlesMaterial.uniforms.uTime.value = time;
+      particlesMaterial.uniforms.uMouse.value.set(mouseRef.current.x, mouseRef.current.y);
       linesMaterial.uniforms.uTime.value = time;
 
-      // Rotate particles slowly
+      // Rotate particles slowly based on mouse position
       if (particles) {
-        particles.rotation.y = time * 0.05;
-        particles.rotation.x = Math.sin(time * 0.02) * 0.1;
+        particles.rotation.y = time * 0.03 + mouseRef.current.x * 0.2;
+        particles.rotation.x = Math.sin(time * 0.02) * 0.1 + mouseRef.current.y * 0.1;
       }
 
-      // Mouse interaction - subtle camera movement
-      const targetX = mouseRef.current.x * 5;
-      const targetY = mouseRef.current.y * 5;
-      camera.position.x += (targetX - camera.position.x) * 0.02;
-      camera.position.y += (-targetY - camera.position.y) * 0.02;
+      // Camera follows mouse with stronger parallax effect
+      const targetX = mouseRef.current.x * 15;
+      const targetY = mouseRef.current.y * 15;
+      camera.position.x += (targetX - camera.position.x) * 0.04;
+      camera.position.y += (-targetY - camera.position.y) * 0.04;
+      camera.position.z = 40 + Math.abs(mouseRef.current.x) * 5;
       camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
@@ -177,8 +221,8 @@ const ThreeBackground = () => {
 
     // Mouse move handler
     const handleMouseMove = (event) => {
-      mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = (event.clientY / window.innerHeight) * 2 - 1;
+      mouseRef.current.targetX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.targetY = -(event.clientY / window.innerHeight) * 2 + 1;
     };
 
     // Resize handler
