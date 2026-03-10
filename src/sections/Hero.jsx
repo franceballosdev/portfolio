@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import ThreeBackground from '../components/ThreeBackground';
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -10,6 +11,9 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden"
     >
+      {/* Three.js 3D Background */}
+      <ThreeBackground />
+
       {/* Animated Background */}
       <div className="hero-bg">
         {/* Glow Orbs */}
