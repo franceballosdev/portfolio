@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -40,7 +42,7 @@ const Footer = () => {
           >
             <h3 className="text-xl font-bold">Portfolio</h3>
             <p className="text-gray-400 text-sm mt-1">
-              Creando experiencias digitales excepcionales
+              {t({ es: 'Creando experiencias digitales excepcionales', en: 'Creating exceptional digital experiences' })}
             </p>
           </motion.div>
 
@@ -76,7 +78,7 @@ const Footer = () => {
           transition={{ delay: 0.5 }}
         >
           <p className="text-gray-400 text-sm">
-            © {currentYear} Franco Ceballos. Todos los derechos reservados.
+            © {currentYear} Franco Ceballos. {t({ es: 'Todos los derechos reservados.', en: 'All rights reserved.' })}
           </p>
         </motion.div>
       </div>

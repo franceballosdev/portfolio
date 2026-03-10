@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
+  const { language, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -15,11 +18,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Inicio', href: '#home' },
-    { name: 'Sobre mí', href: '#about' },
-    { name: 'Habilidades', href: '#skills' },
-    { name: 'Proyectos', href: '#projects' },
-    { name: 'Contacto', href: '#contact' },
+    { name: t({ es: 'Inicio', en: 'Home' }), href: '#home' },
+    { name: t({ es: 'Sobre mí', en: 'About' }), href: '#about' },
+    { name: t({ es: 'Habilidades', en: 'Skills' }), href: '#skills' },
+    { name: t({ es: 'Proyectos', en: 'Projects' }), href: '#projects' },
+    { name: t({ es: 'Contacto', en: 'Contact' }), href: '#contact' },
   ];
 
   return (
@@ -60,9 +63,12 @@ const Navbar = () => {
               </motion.a>
             ))}
             <ThemeToggle />
+            <LanguageToggle />
           </div>
 
           <div className="flex items-center md:hidden">
+            <LanguageToggle />
+            <div className="w-2" />
             <ThemeToggle />
             <motion.button
               className="p-2 ml-2"

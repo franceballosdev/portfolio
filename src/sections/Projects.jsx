@@ -1,26 +1,38 @@
 import { motion } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Projects = () => {
+  const { t } = useLanguage();
+
   const realProjects = [
     {
-      title: 'Carrozas Gualeguaychú',
-      description: 'Sitio web profesional para cooperativa de carrozas estudiantiles de Gualeguaychú. Muestra servicios, galería y sistema de contacto.',
+      title: t({ es: 'Carrozas Gualeguaychú', en: 'Carrozas Gualeguaychú' }),
+      description: t({
+        es: 'Sitio web profesional para cooperativa de carrozas estudiantiles de Gualeguaychú. Muestra servicios, galería y sistema de contacto.',
+        en: 'Professional website for student parade float cooperative in Gualeguaychú. Features services, gallery, and contact system.'
+      }),
       image: 'bg-gradient-to-br from-red-400 to-red-600',
       technologies: ['PHP', 'MySQL', 'Tailwind CSS'],
       demo: 'https://carrozasgualeguaychu.ar',
       showCode: false,
     },
     {
-      title: 'Tienda Online Silvina Andrea',
-      description: 'Plataforma e-commerce de joyería con catálogo de productos, carrito de compras y sistema de pagos integrado.',
+      title: t({ es: 'Tienda Online Silvina Andrea', en: 'Silvina Andrea Online Store' }),
+      description: t({
+        es: 'Plataforma e-commerce de joyería con catálogo de productos, carrito de compras y sistema de pagos integrado.',
+        en: 'Jewelry e-commerce platform with product catalog, shopping cart, and integrated payment system.'
+      }),
       image: 'bg-gradient-to-br from-pink-400 to-pink-600',
       technologies: ['PHP', 'MySQL', 'Tailwind CSS'],
       demo: 'https://silvinandrea.com',
       showCode: false,
     },
     {
-      title: 'Larva Squad Gaming Project',
-      description: 'Sitio web para equipo de esports y gaming, con información del team, consumo de API, torneos y sistema de reclutamiento.',
+      title: t({ es: 'Larva Squad Gaming Project', en: 'Larva Squad Gaming Project' }),
+      description: t({
+        es: 'Sitio web para equipo de esports y gaming, con información del team, consumo de API, torneos y sistema de reclutamiento.',
+        en: 'Website for esports and gaming team with team info, API integration, tournaments, and recruitment system.'
+      }),
       image: 'bg-gradient-to-br from-green-400 to-green-600',
       technologies: ["HTML5", 'Tailwind CSS', "PUBG API"],
       demo: 'https://www.larvasquad.com/',
@@ -30,8 +42,11 @@ const Projects = () => {
 
   const learningProjects = [
     {
-      title: 'E-commerce Frontend',
-      description: 'Frontend moderno para plataforma de e-commerce con interfaz interactiva, carrito de compras y gestión de productos.',
+      title: t({ es: 'E-commerce Frontend', en: 'E-commerce Frontend' }),
+      description: t({
+        es: 'Frontend moderno para plataforma de e-commerce con interfaz interactiva, carrito de compras y gestión de productos.',
+        en: 'Modern frontend for e-commerce platform with interactive interface, shopping cart, and product management.'
+      }),
       image: 'bg-gradient-to-br from-blue-400 to-blue-600',
       technologies: ['React', 'TypeScript', 'Tailwind CSS'],
       github: 'https://github.com/franceballosdev/ecommerceFrontend',
@@ -39,8 +54,11 @@ const Projects = () => {
       showCode: true,
     },
     {
-      title: 'E-commerce Backend',
-      description: 'Backend robusto para plataforma de e-commerce desarrollado en C#, con gestión de bases de datos y APIs REST.',
+      title: t({ es: 'E-commerce Backend', en: 'E-commerce Backend' }),
+      description: t({
+        es: 'Backend robusto para plataforma de e-commerce desarrollado en C#, con gestión de bases de datos y APIs REST.',
+        en: 'Robust backend for e-commerce platform developed in C#, with database management and REST APIs.'
+      }),
       image: 'bg-gradient-to-br from-blue-600 to-blue-800',
       technologies: ['C#', '.NET', 'SQL Server'],
       github: 'https://github.com/franceballosdev/ecommerceBackend',
@@ -48,8 +66,11 @@ const Projects = () => {
       showCode: true,
     },
     {
-      title: 'Bookstore PHP',
-      description: 'Mi primer proyecto personal. Sistema de tienda de libros desarrollado con PHP, base de datos y gestión de inventario.',
+      title: t({ es: 'Bookstore PHP', en: 'Bookstore PHP' }),
+      description: t({
+        es: 'Mi primer proyecto personal. Sistema de tienda de libros desarrollado con PHP, base de datos y gestión de inventario.',
+        en: 'My first personal project. Bookstore system developed with PHP, database, and inventory management.'
+      }),
       image: 'bg-gradient-to-br from-orange-400 to-orange-600',
       technologies: ['PHP', 'MySQL', 'HTML5', 'CSS3'],
       github: 'https://github.com/franceballosdev/Bookstore-php',
@@ -57,8 +78,11 @@ const Projects = () => {
       showCode: true,
     },
     {
-      title: 'Portfolio Personal',
-      description: 'Portfolio digital personal que muestra mis proyectos, habilidades y experiencia como desarrollador.',
+      title: t({ es: 'Portfolio Personal', en: 'Personal Portfolio' }),
+      description: t({
+        es: 'Portfolio digital personal que muestra mis proyectos, habilidades y experiencia como desarrollador.',
+        en: 'Personal digital portfolio showcasing my projects, skills, and experience as a developer.'
+      }),
       image: 'bg-gradient-to-br from-purple-400 to-purple-600',
       technologies: ['React', 'Motion', 'Tailwind CSS', 'Vite', 'Three.js'],
       github: 'https://github.com/franceballosdev/franceballosdev.github.io',
@@ -66,8 +90,11 @@ const Projects = () => {
       showCode: true,
     },
     {
-      title: 'Sistema Recursos Humanos',
-      description: 'Aplicación full-stack de gestión de recursos humanos con React en el frontend y Java en el backend. Sistema CRUD para empleados y departamentos.',
+      title: t({ es: 'Sistema Recursos Humanos', en: 'Human Resources System' }),
+      description: t({
+        es: 'Aplicación full-stack de gestión de recursos humanos con React en el frontend y Java en el backend. Sistema CRUD para empleados y departamentos.',
+        en: 'Full-stack human resources management application with React frontend and Java backend. CRUD system for employees and departments.'
+      }),
       image: 'bg-gradient-to-br from-teal-400 to-teal-600',
       technologies: ['React', 'Java', 'Spring Boot', 'MySQL'],
       github: 'https://github.com/francomceballos/recursos-humanos-app',
@@ -75,8 +102,11 @@ const Projects = () => {
       showCode: true,
     },
     {
-      title: 'Sistema de Inventarios',
-      description: 'Aplicación full-stack de gestión de inventarios con Angular en el frontend y Java Spring Boot en el backend. CRUD de productos con API REST.',
+      title: t({ es: 'Sistema de Inventarios', en: 'Inventory System' }),
+      description: t({
+        es: 'Aplicación full-stack de gestión de inventarios con Angular en el frontend y Java Spring Boot en el backend. CRUD de productos con API REST.',
+        en: 'Full-stack inventory management application with Angular frontend and Java Spring Boot backend. Product CRUD with REST API.'
+      }),
       image: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
       technologies: ['Angular', 'Bootstrap', 'Java', 'Spring Boot', 'MySQL'],
       github: 'https://github.com/francomceballos/Inventarios-APP-FrontEnd-Angular',
@@ -157,7 +187,7 @@ const Projects = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Código
+              {t({ es: 'Código', en: 'Code' })}
             </motion.a>
           )}
           <motion.a
@@ -186,10 +216,10 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-dark dark:text-white mb-4 transition-colors duration-300">
-            Mis <span className="text-primary">Proyectos</span>
+            {t({ es: 'Mis', en: 'My' })} <span className="text-primary">{t({ es: 'Proyectos', en: 'Projects' })}</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
-            Una selección de proyectos que he desarrollado, mostrando mis habilidades y experiencia.
+            {t({ es: 'Una selección de proyectos que he desarrollado, mostrando mis habilidades y experiencia.', en: 'A selection of projects I have developed, showcasing my skills and experience.' })}
           </p>
         </motion.div>
 
@@ -202,7 +232,7 @@ const Projects = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <h3 className="text-2xl font-bold text-dark dark:text-white mb-6 text-center transition-colors duration-300">
-            Proyectos <span className="text-primary">Reales</span>
+            {t({ es: 'Proyectos', en: 'Real' })} <span className="text-primary">{t({ es: 'Reales', en: 'Projects' })}</span>
           </h3>
           <motion.div
             className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
@@ -223,7 +253,7 @@ const Projects = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h3 className="text-2xl font-bold text-dark dark:text-white mb-6 text-center transition-colors duration-300">
-            Proyectos de <span className="text-primary">Aprendizaje</span>
+            {t({ es: 'Proyectos de', en: 'Learning' })} <span className="text-primary">{t({ es: 'Aprendizaje', en: 'Projects' })}</span>
           </h3>
           <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"

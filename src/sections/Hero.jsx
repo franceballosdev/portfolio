@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const Hero = () => {
+  const { t } = useLanguage();
   const particles = Array.from({ length: 20 }, (_, i) => i + 1);
 
   return (
@@ -33,7 +35,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-dark dark:text-white mb-6"
           >
-            Hola, soy{' '}
+            {t({ es: 'Hola, soy', en: 'Hi, I am' })}{' '}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Franco Ceballos
             </span>
@@ -45,7 +47,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 max-w-2xl mx-auto"
           >
-            Desarrollador Web Full Stack
+            {t({ es: 'Desarrollador Web Full Stack', en: 'Full Stack Web Developer' })}
           </motion.p>
 
           <motion.p
@@ -54,7 +56,10 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto"
           >
-            Creo experiencias digitales únicas con pasión por el código limpio y el diseño moderno.
+            {t({
+              es: 'Creo experiencias digitales únicas con pasión por el código limpio y el diseño moderno.',
+              en: 'I create unique digital experiences with a passion for clean code and modern design.'
+            })}
           </motion.p>
 
           <motion.div
@@ -69,7 +74,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Ver Proyectos
+              {t({ es: 'Ver Proyectos', en: 'View Projects' })}
             </motion.a>
             <motion.a
               href="#contact"
@@ -77,7 +82,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Contactar
+              {t({ es: 'Contactar', en: 'Contact' })}
             </motion.a>
           </motion.div>
 

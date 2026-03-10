@@ -1,16 +1,19 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const Skills = () => {
+  const { t } = useLanguage();
+
   const skillCategories = [
     {
       title: 'Frontend',
       skills: [
-        { name: 'React', level: 'Avanzado' },
-        { name: 'JavaScript', level: 'Avanzado' },
-        { name: 'TypeScript', level: 'Intermedio' },
-        { name: 'Angular', level: 'Intermedio' },
-        { name: 'HTML5/CSS3', level: 'Avanzado' },
-        { name: 'Tailwind CSS', level: 'Avanzado' },
+        { name: 'React', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'JavaScript', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'TypeScript', level: t({ es: 'Intermedio', en: 'Intermediate' }) },
+        { name: 'Angular', level: t({ es: 'Intermedio', en: 'Intermediate' }) },
+        { name: 'HTML5/CSS3', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'Tailwind CSS', level: t({ es: 'Avanzado', en: 'Advanced' }) },
       ],
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,11 +24,11 @@ const Skills = () => {
     {
       title: 'Backend',
       skills: [
-        { name: 'PHP', level: 'Avanzado' },
-        { name: 'Node.js', level: 'Intermedio' },
-        { name: 'Express.js', level: 'Intermedio' },
-        { name: 'C#', level: 'Intermedio' },
-        { name: '.NET', level: 'Intermedio' },
+        { name: 'PHP', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'Node.js', level: t({ es: 'Intermedio', en: 'Intermediate' }) },
+        { name: 'Express.js', level: t({ es: 'Intermedio', en: 'Intermediate' }) },
+        { name: 'C#', level: t({ es: 'Intermedio', en: 'Intermediate' }) },
+        { name: '.NET', level: t({ es: 'Intermedio', en: 'Intermediate' }) },
       ],
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,13 +37,13 @@ const Skills = () => {
       ),
     },
     {
-      title: 'Herramientas',
+      title: t({ es: 'Herramientas', en: 'Tools' }),
       skills: [
-        { name: 'Git/GitHub', level: 'Avanzado' },
-        { name: 'VS Code', level: 'Avanzado' },
-        { name: 'Linux', level: 'Avanzado' },
-        { name: 'Docker', level: 'Básico' },
-        { name: 'AWS', level: 'Básico' },
+        { name: 'Git/GitHub', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'VS Code', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'Linux', level: t({ es: 'Avanzado', en: 'Advanced' }) },
+        { name: 'Docker', level: t({ es: 'Básico', en: 'Basic' }) },
+        { name: 'AWS', level: t({ es: 'Básico', en: 'Basic' }) },
       ],
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,10 +100,13 @@ const Skills = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-dark dark:text-white mb-4 transition-colors duration-300">
-            Mis <span className="text-primary">Habilidades</span>
+            {t({ es: 'Mis', en: 'My' })} <span className="text-primary">{t({ es: 'Habilidades', en: 'Skills' })}</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
-            Tecnologías y herramientas que utilizo para crear soluciones digitales excepcionales.
+            {t({
+              es: 'Tecnologías y herramientas que utilizo para crear soluciones digitales excepcionales.',
+              en: 'Technologies and tools I use to create exceptional digital solutions.'
+            })}
           </p>
         </motion.div>
 
@@ -150,9 +156,9 @@ const Skills = () => {
                     <span className="text-gray-700 dark:text-gray-300 font-medium transition-colors duration-300">{skill.name}</span>
                     <span
                       className={`text-xs px-3 py-1.5 rounded-full font-medium ${
-                        skill.level === 'Avanzado'
+                        skill.level === t({ es: 'Avanzado', en: 'Advanced' })
                           ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                          : skill.level === 'Intermedio'
+                          : skill.level === t({ es: 'Intermedio', en: 'Intermediate' })
                           ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300'
                           : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
                       }`}

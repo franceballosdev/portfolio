@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
+  const { t } = useLanguage();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -24,10 +26,10 @@ const About = () => {
   };
 
   const stats = [
-    { value: '2+', label: 'Años de Experiencia' },
-    { value: '3+', label: 'Proyectos Completados' },
-    { value: '3+', label: 'Clientes Satisfechos' },
-    { value: '100%', label: 'Compromiso' },
+    { value: '2+', label: t({ es: 'Años de Experiencia', en: 'Years of Experience' }) },
+    { value: '3+', label: t({ es: 'Proyectos Completados', en: 'Projects Completed' }) },
+    { value: '3+', label: t({ es: 'Clientes Satisfechos', en: 'Happy Clients' }) },
+    { value: '100%', label: t({ es: 'Compromiso', en: 'Commitment' }) },
   ];
 
   return (
@@ -70,23 +72,25 @@ const About = () => {
               variants={itemVariants}
               className="text-3xl md:text-4xl font-bold text-dark dark:text-white mb-4 transition-colors duration-300"
             >
-              Sobre <span className="text-primary">Mí</span>
+              {t({ es: 'Sobre', en: 'About' })} <span className="text-primary">{t({ es: 'Mí', en: 'Me' })}</span>
             </motion.h2>
             <motion.p
               variants={itemVariants}
               className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors duration-300"
             >
-              Soy un desarrollador web apasionado por crear experiencias digitales excepcionales.
-              Con experiencia en tecnologías modernas de frontend y backend, me especializo en
-              construir aplicaciones web escalables y de alto rendimiento.
+              {t({
+                es: 'Soy un desarrollador web apasionado por crear experiencias digitales excepcionales. Con experiencia en tecnologías modernas de frontend y backend, me especializo en construir aplicaciones web escalables y de alto rendimiento.',
+                en: 'I am a web developer passionate about creating exceptional digital experiences. With experience in modern frontend and backend technologies, I specialize in building scalable, high-performance web applications.'
+              })}
             </motion.p>
             <motion.p
               variants={itemVariants}
               className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors duration-300"
             >
-              Me encanta resolver problemas complejos y aprender nuevas tecnologías constantemente.
-              Mi objetivo es crear productos digitales que no solo funcionen perfectamente,
-              sino que también ofrezcan una excelente experiencia de usuario.
+              {t({
+                es: 'Me encanta resolver problemas complejos y aprender nuevas tecnologías constantemente. Mi objetivo es crear productos digitales que no solo funcionen perfectamente, sino que también ofrezcan una excelente experiencia de usuario.',
+                en: 'I love solving complex problems and constantly learning new technologies. My goal is to create digital products that not only work perfectly but also provide an excellent user experience.'
+              })}
             </motion.p>
 
             <motion.div

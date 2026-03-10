@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,7 +20,10 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Formulario enviado:', formData);
-    alert('Gracias por tu mensaje. Te contactaré pronto!');
+    alert(t({
+      es: 'Gracias por tu mensaje. Te contactaré pronto!',
+      en: 'Thank you for your message. I will contact you soon!'
+    }));
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -30,7 +35,7 @@ const Contact = () => {
     },
     {
       icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
-      title: 'Ubicación',
+      title: t({ es: 'Ubicación', en: 'Location' }),
       content: 'Concepción del Uruguay, Entre Ríos, Argentina',
     },
   ];
@@ -68,10 +73,13 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-dark dark:text-white mb-4 transition-colors duration-300">
-            Contacto
+            {t({ es: 'Contacto', en: 'Contact' })}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
-            ¿Tienes un proyecto en mente? ¡Me encantaría ayudarte! Contáctame y conversemos.
+            {t({
+              es: '¿Tienes un proyecto en mente? ¡Me encantaría ayudarte! Contáctame y conversemos.',
+              en: 'Have a project in mind? I would love to help you! Contact me and let\'s talk.'
+            })}
           </p>
         </motion.div>
 
@@ -120,7 +128,7 @@ const Contact = () => {
                 </svg>
               </motion.div>
               <div>
-                <h3 className="font-bold text-dark dark:text-white transition-colors duration-300">Redes Sociales</h3>
+                <h3 className="font-bold text-dark dark:text-white transition-colors duration-300">{t({ es: 'Redes Sociales', en: 'Social Media' })}</h3>
                 <div className="flex space-x-3 mt-2">
                   <motion.a
                     href="https://github.com/franceballosdev"
@@ -160,7 +168,7 @@ const Contact = () => {
               transition={{ delay: 0.3 }}
             >
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-300">
-                Nombre
+                {t({ es: 'Nombre', en: 'Name' })}
               </label>
               <motion.input
                 type="text"
@@ -170,7 +178,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-5 py-3.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition duration-300"
-                placeholder="Tu nombre"
+                placeholder={t({ es: 'Tu nombre', en: 'Your name' })}
                 whileFocus={{ scale: 1.01 }}
               />
             </motion.div>
@@ -204,7 +212,7 @@ const Contact = () => {
               transition={{ delay: 0.5 }}
             >
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-300">
-                Mensaje
+                {t({ es: 'Mensaje', en: 'Message' })}
               </label>
               <motion.textarea
                 id="message"
@@ -214,7 +222,7 @@ const Contact = () => {
                 required
                 rows={4}
                 className="w-full px-5 py-3.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition duration-300 resize-none"
-                placeholder="Tu mensaje..."
+                placeholder={t({ es: 'Tu mensaje...', en: 'Your message...' })}
                 whileFocus={{ scale: 1.01 }}
               />
             </motion.div>
@@ -229,7 +237,7 @@ const Contact = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Enviar Mensaje
+              {t({ es: 'Enviar Mensaje', en: 'Send Message' })}
             </motion.button>
           </motion.form>
         </div>
